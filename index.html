@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <section class="weather-container">
+        <div class="header">
+          <h2>🌤 Weather App</h2>
+        </div>
+
+        <form class="search-box" id="searchForm">
+          <input type="text" placeholder="Lagos" />
+          <button type="submit">Search</button>
+        </form>
+
+        <div class="weather-card" id="weather-card">
+          <div class="icon" id="weather-icon">☀️</div>
+          <h2 id="city-name">Lagos, Nigeria</h2>
+          <h1 id="temperature">32°C</h1>
+          <p id="weather-description">Sunny · Feels like 36°C</p>
+        </div>
+
+        <div class="stats" id="stats">
+          <div>
+            <p>Humidity</p>
+            <h3 id="humidity">78%</h3>
+          </div>
+
+          <div>
+            <p id="wind-label">Wind</p>
+            <h3 id="wind-speed">14 km/h</h3>
+          </div>
+
+          <div>
+            <p>UV Index</p>
+            <h3 id="uv-index">High</h3>
+          </div>
+        </div>
+
+        <h3 class="forecast-title">5-DAY FORECAST</h3>
+
+        <div class="forecast-item">
+          <span>Today</span>
+          <span>☀️</span>
+          <span>
+            <strong>34°</strong><br />
+            27°
+          </span>
+        </div>
+
+        <div class="forecast-item">
+          <span>Tuesday</span>
+          <span>☁️</span>
+          <span>
+            <strong>31°</strong><br />
+            25°
+          </span>
+        </div>
+
+        <div class="forecast-item">
+          <span>Wednesday</span>
+          <span>🌧️</span>
+          <span>
+            <strong>28°</strong><br />
+            24°
+          </span>
+        </div>
+
+        <div class="forecast-item">
+          <span>Thursday</span>
+          <span>🌧️</span>
+          <span>
+            <strong>27°</strong><br />
+            23°
+          </span>
+        </div>
+
+        <div class="forecast-item">
+          <span>Friday</span>
+          <span>☀️</span>
+          <span>
+            <strong>33°</strong><br />
+            26°
+          </span>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
