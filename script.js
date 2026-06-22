@@ -18,14 +18,12 @@ function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
   } else {
-    console.log("Geolocation is not supported by this browser.");
   }
 }
 
 async function showPosition(position) {
   const latitude = position.coords.latitude;
   const longitude = position.coords.longitude;
-  console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
 
   weatherError.style.display = "none";
   // showloader
@@ -34,9 +32,15 @@ async function showPosition(position) {
     const cityData = await getCity(latitude, longitude);
     const weatherData = await getWeather(longitude, latitude);
 
-    updateWeatherUI({ ...weatherData });
+    updateWeatherUI({
+      ...weatherData,
+      cityName: cityData.city,
+      country: cityData.countryName,
+    });
   } catch (error) {
-    addErrorToUI();
+    loadWeather.style.display = "none";
+    weatherError.style.display = "block";
+    console.log(error);
   }
 }
 
@@ -54,6 +58,10 @@ searchForm.addEventListener("submit", (e) => {
     weatherError.style.display = "none";
     // showloader
     loadWeather.style.display = "block";
+    weatherCard.style.display = "none";
+    weatherStats.style.display = "none";
+    forecastTitle.style.display = "none";
+    forecastContent.innerHTML = "";
     fetchWeather(city);
   }
 });
@@ -64,16 +72,12 @@ async function fetchWeather(city) {
   try {
     const { latitude, longitude, cityName, country } = await getPosition(city);
     const weatherData = await getWeather(longitude, latitude);
-    updateWeatherUI({ ...weatherData, cityName, country });
+    updateWeatherUI({ ...weatherData, cityName: cityName, country: country });
   } catch (error) {
-    addErrorToUI(error);
+    loadWeather.style.display = "none";
+    weatherError.style.display = "block";
+    console.log(error);
   }
-}
-
-function addErrorToUI(error) {
-  loadWeather.style.display = "none";
-  weatherError.style.display = "block";
-  console.error(error);
 }
 
 // Get City - city
@@ -97,11 +101,11 @@ async function getPosition(city) {
 
 async function getCity(lat, lon) {
   const cityResponse = await fetch(
-    `https://bigdatacloud.net?latitude=${lat}&longitude=${lon}&localityLanguage=en`,
+    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`,
   );
   const cityData = await cityResponse.json();
 
-  console.log(cityData);
+  return cityData;
 }
 
 // Get Weather -> long, lat
@@ -117,7 +121,7 @@ async function getWeather(longitude, latitude) {
 function updateWeatherUI(weatherData) {
   // hide loader
   loadWeather.style.display = "none";
-  console.log(weatherData);
+  // console.log(weatherData);
   const currentWeather = weatherData.current;
   const dailyWeather = weatherData.daily;
   cityName.textContent = `${weatherData.cityName}, ${weatherData.country}`;
@@ -134,7 +138,7 @@ function updateWeatherUI(weatherData) {
 function updateDailyWeatherForecastUI(dailyForecast) {
   if (!dailyForecast) return;
 
-  console.log(dailyForecast);
+  // console.log(dailyForecast);
 
   weatherCard.style.display = "block";
   weatherStats.style.display = "flex";
