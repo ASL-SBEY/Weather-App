@@ -51,6 +51,36 @@ body {
   font-weight: bold;
 }
 
+.loader {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #dddddd;
+  border-top-color: #0d3b66;
+  border-radius: 100%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+  margin-top: 5rem;
+  margin-bottom: 8rem;
+  display: none;
+}
+
+.error {
+  margin-top: 5rem;
+  margin-bottom: 8rem;
+  text-align: center;
+  color: red;
+  display: none;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); /* Starting position */
+  }
+  100% {
+    transform: rotate(360deg); /* One complete full turn */
+  }
+}
+
 .weather-card {
   margin: 15px;
   background: #2f89b8;
@@ -58,6 +88,7 @@ body {
   text-align: center;
   padding: 30px 20px;
   border-radius: 20px;
+  display: none;
 }
 
 .weather-card .icon {
@@ -86,6 +117,7 @@ body {
   display: flex;
   justify-content: space-around;
   padding: 20px;
+  display: none;
 }
 
 .stats div {
@@ -105,6 +137,7 @@ body {
   padding: 0 20px;
   margin-bottom: 15px;
   color: #555;
+  display: none;
 }
 
 .forecast-item {
